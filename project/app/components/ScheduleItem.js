@@ -3,8 +3,8 @@ var React = require('react');
 var ScheduleItem = React.createClass({
   render: function(){
     var id = this.props.data.id,
-        time = this.props.data.time,
-        title = this.props.data.title;
+        time = this.props.data.attributes.time,
+        title = this.props.data.attributes.title;
     return (
       <div className="row">
         <div className="small-1 columns">
