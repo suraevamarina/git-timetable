@@ -16,10 +16,10 @@ function loadData(data) {
   }
 }
 
-// var addItem = function(data){
-//   // добавление нового элемента к списку
-//   _store.list.push(data);
-// };
+var addItem = function(data){
+  // добавление нового элемента к списку
+  _store.list.push(data);
+};
 
 var AppStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
