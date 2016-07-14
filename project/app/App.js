@@ -1,9 +1,9 @@
 var React = require('react');
 var ListContainer = require('./components/ListContainer');
-var TimetableAPI = require('./utils/TimetableAPI');
+var AppActions = require('./actions/AppActions');
 
-// получение данных
-TimetableAPI.getItems();
+// получение начальных данных
+AppActions.receiveData();
 
 var App = React.createClass({
   render: function(){
