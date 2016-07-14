@@ -9,9 +9,17 @@ var _store = {
   list: []
 };
 
-var addItem = function(name,time){
-  _store.list.push(name,time);
-};
+// загрузка данных через mock API
+function loadData(data) {
+  for (var i in data) {
+    _store.list.push(data[i]);
+  }
+}
+
+// var addItem = function(data){
+//   // добавление нового элемента к списку
+//   _store.list.push(data);
+// };
 
 var AppStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
@@ -20,6 +28,7 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
   },
+  // получение начального состояния списка
   getList: function(){
     return _store.list;
   },
@@ -28,6 +37,11 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(payload){
   var action = payload.action;
   switch(action.actionType){
+    // ответ на запрос получения данных
+    case appConstants.RECEIVE_DATA:
+      loadData(action.data);
+      break;
+
     case appConstants.ADD_ITEM:
       addItem(action.data);
       AppStore.emit(CHANGE_EVENT);
