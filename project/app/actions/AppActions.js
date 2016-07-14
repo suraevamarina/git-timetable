@@ -23,6 +23,9 @@ var AppActions = {
         data: data
       });
    }
+   else {
+     alert("Данные не были добавлены!");
+   }
   }
 };
 
