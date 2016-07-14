@@ -14,10 +14,15 @@ var AppActions = {
     })
   },
   addItem: function(data){
-    AppDispatcher.handleAction({
-      actionType: appConstants.ADD_ITEM,
-      data: data
-    });
+    // если запрос на добавление данных выполнился успешно,
+    // данные добавляются в хранилище
+    if (TimetableAPI.addItem())
+    {
+      AppDispatcher.handleAction({
+        actionType: appConstants.ADD_ITEM,
+        data: data
+      });
+   }
   }
 };
 
