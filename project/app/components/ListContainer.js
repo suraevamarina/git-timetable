@@ -18,8 +18,8 @@ var ListContainer = React.createClass({
     // больше не слушает событие
     AppStore.removeChangeListener(this._onChange);
   },
-  handleAddItem: function(newName,newTime){
-    AppActions.addItem(newName,newTime);
+  handleAddItem: function(id,title,time){
+    AppActions.addItem(id,title,time);
   },
   // при изменении получаем новый список
   _onChange: function(){
@@ -27,36 +27,19 @@ var ListContainer = React.createClass({
       list: AppStore.getList()
     })
   },
-loaddata: function() {
-  var xhr = new XMLHttpRequest();
-
-  xhr.open('GET',
-  'http://private-1a128-timetable4.apiary-mock.com/schedule-items',false);
-  xhr.send();
-
-  if (xhr.status == 200)
-    var data = JSON.parse(xhr.responseText);
-
-  var output = data.data;
-
-  return output;
-},
 openbox: function() {
   document.getElementById('box').style.display='block';
 },
   render: function(){
     var template;
 
-    var _data = this.loaddata();
-
-    template = _data.map(function(item,index) {
+    template = this.state.list.map(function(item,index) {
       return (
         <div key={index}>
           <ScheduleItem data = {item} />
         </div>
       )
     })
-
     return (
       <div className="row">
         <div className="large-12 column">
