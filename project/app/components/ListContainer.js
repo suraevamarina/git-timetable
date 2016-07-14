@@ -18,8 +18,8 @@ var ListContainer = React.createClass({
     // больше не слушает событие
     AppStore.removeChangeListener(this._onChange);
   },
-  handleAddItem: function(id,title,time){
-    AppActions.addItem(id,title,time);
+  handleAddItem: function(data){
+    AppActions.addItem(data);
   },
   // при изменении получаем новый список
   _onChange: function(){
@@ -27,9 +27,18 @@ var ListContainer = React.createClass({
       list: AppStore.getList()
     })
   },
-openbox: function() {
-  document.getElementById('box').style.display='block';
-},
+  // определет максимальный id
+  defineMaxId: function(data) {
+    var maxId = data[0].id;
+    for (var i in data) {
+      if (data[i].id > maxId)
+        maxId = data[i].id;
+    }
+    return maxId;
+  },
+  openBox: function() {
+    document.getElementById('box').style.display='block';
+  },
   render: function(){
     var template;
 
@@ -47,14 +56,11 @@ openbox: function() {
 
           <div className="large-4 column">
               <div className="expanded button-group">
-                <a className="button" onClick={this.openbox}>Добавить позицию</a>
+                <a className="button" onClick={this.openBox}>Добавить позицию</a>
               </div>
-
-              <p> {template} </p>
+              {template}
           </div>
-
-          <AddItem add={this.handleAddItem}/>
-
+              <AddItem add={this.handleAddItem} maxId={this.defineMaxId(this.state.list)}/>
         </div>
       </div>
     )
