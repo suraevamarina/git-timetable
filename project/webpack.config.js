@@ -1,5 +1,6 @@
 module.exports = {
   entry: "./app/App.js",
+  watch: true,
   output: {
     filename: "public/bundle.js"
   },
