@@ -1,5 +1,3 @@
-var AppActions = require('../actions/AppActions');
-
 module.exports = {
 
   // получение данных с сервера
@@ -15,6 +13,6 @@ module.exports = {
 
     var output = data.data;
 
-    AppActions.receiveData(output);
+    return output;
   }
 };
