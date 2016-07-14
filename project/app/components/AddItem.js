@@ -7,20 +7,24 @@ var AddItem = React.createClass({
       var newName = this.refs.newName.getDOMNode().value;
       // очищаем поле ввода
       this.refs.newName.getDOMNode().value = '';
-      // добавляем введенные данные в свойство
-      this.props.add(newName);
 
       // получаем введенное значение
       var newTime = this.refs.newTime.getDOMNode().value;
       // очищаем поле ввода
       this.refs.newTime.getDOMNode().value = '';
-      // добавляем введенные данные в свойство
-      this.props.add(newTime);
 
-      this.postItem(newName,newTime);
+      var newId = Number(this.props.maxId)+1;
+      // данные для добавление
+      var data = {"id": newId, "attributes": {"title": newName, "time": newTime}};
+
+      // добавляем введенные данные в свойство
+      this.props.add(data);
+
+      // закрываем окно добавления
+      this.closeBox();
 
   },
-  closebox: function() {
+  closeBox: function() {
     document.getElementById('box').style.display='none';
   },
   render: function(){
@@ -36,7 +40,7 @@ var AddItem = React.createClass({
           </label>
           <div className="expanded button-group">
               <a className="success button" onClick={this.handleSubmit}>OK</a>
-              <a className="alert button" onClick={this.closebox}>Cancel</a>
+              <a className="alert button" onClick={this.closeBox}>Cancel</a>
           </div>
       </div>
       </div>
