@@ -7,26 +7,23 @@ var AppActions = {
   receiveData: function() {
     // получение данных через api
     var data = TimetableAPI.getItems();
-
-    AppDispatcher.handleAction({
-      actionType: appConstants.RECEIVE_DATA,
-      data: data
-    })
+      AppDispatcher.handleAction({
+        actionType: appConstants.RECEIVE_DATA,
+        data: data
+    });
   },
   addItem: function(data){
     // если запрос на добавление данных выполнился успешно,
     // данные добавляются в хранилище
-    if (TimetableAPI.addItem())
-    {
-      AppDispatcher.handleAction({
-        actionType: appConstants.ADD_ITEM,
-        data: data
-      });
-   }
-   else {
-     alert("Данные не были добавлены!");
-   }
-  }
+    TimetableAPI.addItem(data, function(added) {
+      if (added) {
+        AppDispatcher.handleAction({
+          actionType: appConstants.ADD_ITEM,
+          data: data
+        });
+      }
+    })
+ }
 };
 
 module.exports = AppActions;
