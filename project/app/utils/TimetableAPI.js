@@ -1,20 +1,31 @@
 module.exports = {
 
   // получение данных с сервера
-  getItems: function() {
-    var xhr = new XMLHttpRequest();
+    getItems: function(callback) {
+      var xhr = new XMLHttpRequest();
 
-    xhr.open('GET',
-    'http://private-1a128-timetable4.apiary-mock.com/schedule-items',false);
-    xhr.send();
+      xhr.open('GET',
+      'http://private-1a128-timetable4.apiary-mock.com/schedule-items');
 
-    if (xhr.status == 200)
-      var data = JSON.parse(xhr.responseText);
+      xhr.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status != 200) {
+            // обработать ошибку
+            alert("Данные не были получены!");
+            return;
+          }
+          else {
+            var data = JSON.parse(this.responseText);
 
-    var output = data.data;
+            var output = data.data;
 
-    return output;
-  },
+            callback(output);
+          }
+        }
+      }
+
+      xhr.send();
+    },
   // добавление нового элемента
   addItem: function(data,callback) {
     var json = JSON.stringify(data);
