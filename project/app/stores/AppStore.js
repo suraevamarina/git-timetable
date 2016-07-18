@@ -21,6 +21,10 @@ var addItem = function(data){
   _store.list.push(data);
 };
 
+ var removeItem = function(index){
+   _store.list.splice(index, 1);
+ };
+
 var AppStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE_EVENT, cb);
@@ -46,6 +50,11 @@ AppDispatcher.register(function(payload){
       addItem(action.data);
       AppStore.emit(CHANGE_EVENT);
       break;
+
+     case appConstants.REMOVE_ITEM:
+       removeItem(action.data);
+       AppStore.emit(CHANGE_EVENT);
+       break;
 
     default:
       return true;

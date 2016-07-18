@@ -6,7 +6,7 @@ var AppActions = {
   // получение начальных данных
   receiveData: function() {
       // получение данных через api
-      TimetableAPI.getItems(function(data) {
+      TimetableAPI.getItems(function(data){
         AppDispatcher.handleAction({
           actionType: appConstants.RECEIVE_DATA,
           data: data
@@ -24,7 +24,19 @@ var AppActions = {
         });
       }
     })
- }
+ },
+  removeItem: function(index){
+    // если запрос на удаление данных выполнился успешно,
+    // данные удаляются из хранилища
+    TimetableAPI.removeItem(index, function(removed) {
+      if (removed) {
+        AppDispatcher.handleAction({
+          actionType: appConstants.REMOVE_ITEM,
+          data: index
+        });
+      }
+    })
+  }
 };
 
 module.exports = AppActions;

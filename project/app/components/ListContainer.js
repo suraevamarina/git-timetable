@@ -29,23 +29,24 @@ var ListContainer = React.createClass({
   },
   // определет максимальный id
   defineMaxId: function(data) {
-    var maxId = data[0].id;
-    for (var i in data) {
-      if (data[i].id > maxId)
-        maxId = data[i].id;
-    }
-    return maxId;
-  },
+   var maxId = data[0].id;
+   for (var i in data) {
+     if (data[i].id > maxId)
+       maxId = data[i].id;
+   }
+   return maxId;
+ },
   openBox: function() {
     document.getElementById('box').style.display='block';
   },
   render: function(){
+
     var template;
 
     template = this.state.list.map(function(item,index) {
       return (
         <div key={index}>
-          <ScheduleItem data = {item} />
+          <ScheduleItem data = {item} index = {index}/>
         </div>
       )
     })

@@ -1,6 +1,10 @@
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var ScheduleItem = React.createClass({
+   handleRemoveItem: function(index){
+     AppActions.removeItem(index);
+   },
   render: function(){
     var id = this.props.data.id,
         time = this.props.data.attributes.time,
@@ -16,7 +20,11 @@ var ScheduleItem = React.createClass({
         <div className="small-6 columns">
           {title}
         </div>
-        <div className="small-2 columns"><button type="button" className="tiny alert button" name={id}>x</button>
+        <div className="small-2 columns">
+          <button type="button"
+             className="tiny alert button"
+              onClick={this.handleRemoveItem.bind(this,this.props.index)}
+             name={id}>x</button>
         </div>
       </div>
     )
