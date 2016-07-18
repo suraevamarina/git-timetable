@@ -44,6 +44,7 @@ AppDispatcher.register(function(payload){
     // ответ на запрос получения данных
     case appConstants.RECEIVE_DATA:
       loadData(action.data);
+      AppStore.emit(CHANGE_EVENT);
       break;
 
     case appConstants.ADD_ITEM:
