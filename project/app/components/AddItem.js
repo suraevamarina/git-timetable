@@ -1,27 +1,46 @@
 var React = require('react');
 
 var AddItem = React.createClass({
+  // проверка корректности введенного времени
+  checkTime: function(value) {
+    var pattern = /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
+    if (pattern.test(value))
+      return true;
+    else
+      return false;
+  },
   handleSubmit: function(){
-
-      // получаем введенное значение
-      var newName = this.refs.newName.getDOMNode().value;
-      // очищаем поле ввода
-      this.refs.newName.getDOMNode().value = '';
-
       // получаем введенное значение
       var newTime = this.refs.newTime.getDOMNode().value;
-      // очищаем поле ввода
-      this.refs.newTime.getDOMNode().value = '';
 
-      var newId = Number(this.props.maxId)+1;
-      // данные для добавление
-      var data = {"id": newId, "attributes": {"title": newName, "time": newTime}};
+      if (this.checkTime(newTime))
+      {
+        // очищаем поле ввода
+        this.refs.newTime.getDOMNode().value = '';
 
-      // добавляем введенные данные в свойство
-      this.props.add(data);
+        // получаем введенное значение
+        var newName = this.refs.newName.getDOMNode().value;
+        // очищаем поле ввода
+        this.refs.newName.getDOMNode().value = '';
 
-      // закрываем окно добавления
-      this.closeBox();
+        var newId = Number(this.props.maxId)+1;
+        // данные для добавление
+        var data = {"id": newId, "attributes": {"title": newName, "time": newTime}};
+
+        // добавляем введенные данные в свойство
+        this.props.add(data);
+
+        // закрываем окно добавления
+        this.closeBox();
+      }
+      else
+      {
+        // очищаем поля ввода
+        this.refs.newTime.getDOMNode().value = '';
+        this.refs.newName.getDOMNode().value = '';
+
+        alert("Введено некорректное время!");
+      }
 
   },
   closeBox: function() {
