@@ -29,13 +29,22 @@ var ListContainer = React.createClass({
   },
   // определет максимальный id
   defineMaxId: function(data) {
-   var maxId = data[0].id;
-   for (var i in data) {
-     if (data[i].id > maxId)
-       maxId = data[i].id;
-   }
-   return maxId;
- },
+    var maxId;
+    if (data.length == 0)
+    {
+      maxId = 0;
+    }
+    else
+    {
+      maxId = data[0].id;
+      for (var i in data) {
+      if (data[i].id > maxId)
+        maxId = data[i].id;
+      }
+    }
+
+    return maxId;
+  },
   openBox: function() {
     document.getElementById('box').style.display='block';
   },
