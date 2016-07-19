@@ -25,6 +25,15 @@ var addItem = function(data){
    _store.list.splice(index, 1);
  };
 
+ var updateItem = function(data){
+   // обновление элемента
+   for (var i = 0; i < _store.list.length; i++)
+     if (_store.list[i].id == data.id) {
+       _store.list[i].attributes.time = data.time;
+       break;
+     }
+ };
+
 var AppStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE_EVENT, cb);
@@ -60,6 +69,11 @@ AppDispatcher.register(function(payload){
        removeItem(action.data);
        AppStore.emit(CHANGE_EVENT);
        break;
+
+       case appConstants.UPDATE_ITEM:
+         updateItem(action.data);
+         AppStore.emit(CHANGE_EVENT);
+         break;
 
     default:
       return true;
