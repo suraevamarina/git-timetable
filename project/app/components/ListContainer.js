@@ -7,7 +7,7 @@ var ScheduleItem = require('./ScheduleItem');
 var ListContainer = React.createClass({
   getInitialState: function(){
     return {
-      list: AppStore.getList()
+      list: []
     }
   },
   componentDidMount: function(){
