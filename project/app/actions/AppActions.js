@@ -25,6 +25,18 @@ var AppActions = {
       }
     })
  },
+ updateItem: function(id,time,title){
+   // если запрос на обновление данных выполнился успешно,
+   // данные в хранилище также обновляются
+   TimetableAPI.updateItem(id,time,title, function(updated) {
+     if (updated) {
+       AppDispatcher.handleAction({
+         actionType: appConstants.UPDATE_ITEM,
+         data: {id,time}
+       });
+     }
+  })
+},
   removeItem: function(index){
     // если запрос на удаление данных выполнился успешно,
     // данные удаляются из хранилища
