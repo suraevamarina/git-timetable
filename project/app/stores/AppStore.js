@@ -32,8 +32,12 @@ var AppStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(CHANGE_EVENT, cb);
   },
-  // получение начального состояния списка
+  // сортировка и получение данных из хранилища
   getList: function(){
+    _store.list.sort(function(a,b) {
+      if (a.attributes.time > b.attributes.time) return 1;
+      if (a.attributes.time < b.attributes.time) return -1;
+    });
     return _store.list;
   },
 });
