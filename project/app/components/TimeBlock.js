@@ -33,7 +33,7 @@ var TimeBlock = React.createClass({
             // убираем подсветку
             document.getElementById(divTitle).style.background = "#f7b4a8";
           }
-
+        }
         // если чекбокс отмечен
         if ((a[i].type == 'checkbox') && (a[i].checked)) {
           var list = this.getList();
@@ -47,8 +47,9 @@ var TimeBlock = React.createClass({
             }
           }
           AppActions.updateItem(a[i].id,time,title);
+          a[i].checked = false;
+
         }
-       }
       }
     }
   },
